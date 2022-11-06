@@ -56,11 +56,11 @@ OWNER = int(os.environ['OWNER'])
 start_button = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("👥 Group", url="https://t.me/Groupdcs"),
-                    InlineKeyboardButton("🗣 Channel", url="https://t.me/Groupdcbots")
+                    InlineKeyboardButton("⚙️ Suporte", url="https://t.me/MENT4LL"),
+                    InlineKeyboardButton("🗣 Canal", url="https://t.me/Suporte_ModeradorPro")
                 ],
 		        [
-                    InlineKeyboardButton("➕ Add to Your Group ➕", url=f"http://t.me/TempMailDcBot?startgroup=new"),
+                    InlineKeyboardButton("➕ Adicione ao seu grupo ➕", url=f"http://t.me/ConnectyQ_bot?startgroup=new"),
                 ]    
             ]
 )
@@ -73,9 +73,9 @@ async def start(_, message: Message):
        await app.send_message(
 			chat_id=message.from_user.id,
 			text=f"""
-🚧 **Access Denied** {message.from_user.mention}
+🚧 **Acesso negado** {message.from_user.mention}
 You must,
-🔹[join Our Telegram Channel](https://t.me/{CHANNEL}).
+🔹[junte-se ao nosso Canal telegrama](https://t.me/{CHANNEL}).
 """)
        return
     name = message.from_user.id
@@ -99,13 +99,13 @@ API3='https://www.1secmail.com/api/v1/?action=readMessage&login='
 #********************************************************************************
 
 create = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Groupdcbots ⚡", url="https://t.me/groupdcbots")]])
+            [[InlineKeyboardButton("TempMail Bot⚡", url="https://t.me/ConnectyQ_bot")]])
 
 #********************************************************************************
 @app.on_message(filters.command("new"))
 async def fakemailgen(_, message: Message):
     name = message.from_user.id
-    m =  await app.send_message(name,text=f"📧 Creating  temp email....",reply_markup = create)
+    m =  await app.send_message(name,text=f"📧 Criando e-mails temporários....",reply_markup = create)
     rp = RandomWord(max_word_size=8, include_digits=True)
     email = rp.generate()
     xx = requests.get(API1).json()
@@ -114,11 +114,11 @@ async def fakemailgen(_, message: Message):
     mes = await app.send_message(
     name, 
     text = f"""
-**📬 Done,Your Email Address Created!**
+**📬 Feito, seu endereço de e-mail criado!**
 📧 **Email** : `{email}@{domain}`
-📨 **Mail BOX** : `empty`
-♨️ **Powered by** : @groupdcbots """,
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("♻️ Update Mail BOX ♻️", callback_data = f"mailbox |{email}|{domain}")]]))
+📨 **Caixa de correio** : `empty`
+♨️ **Ativado por** : @ConnectyQ_bot """,
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("♻️ Atualizar caixa de correio ♻️", callback_data = f"mailbox |{email}|{domain}")]]))
     pi = await mes.pin(disable_notification=True, both_sides=True)
     await m.delete()
     await pi.delete()
@@ -134,7 +134,7 @@ async def gen_keyboard(mails, email, domain):
         )
         num += 1
     data.append(
-        InlineKeyboardButton(f"Update Mail BOX ♻️", f"mailbox |{email}|{domain}")
+        InlineKeyboardButton(f"Atualizar caixa de correio ♻️", f"mailbox |{email}|{domain}")
     )
     i_kbd.add(*data)
     return i_kbd
@@ -148,20 +148,20 @@ async def mail_box(_, query : CallbackQuery):
     m, email , domain = callback_request.split("|")
     mails = requests.get(f'{API2}{email}&domain={domain}').json()
     if mails == []:
-            await query.answer("🤷‍♂️ No Mails found! 🤷‍♂️")
+            await query.answer("🤷‍♂️ Nenhum e-mail encontrado! 🤷‍♂️")
     else:
         try:
             smail = f"{email}@{domain}"
             mbutton = await gen_keyboard(mails,email, domain)
             await query.message.edit(f""" 
-**📬 Done,Your Email Address Created!**
+**📬 Feito, seu endereço de e-mail criado!**
 📧 **Email** : `{smail}`
-📨 **Mail BOX** : ✅
-**♨️ Powered by** : @Groupdcbots""",
+📨 **Caixa de correio** : ✅
+**♨️ Ativado por** : @ConnectyQ_bot""",
 reply_markup = mbutton
 )   
         except bad_request_400.MessageNotModified as e:
-            await query.answer("🤷‍♂️ No New Mails found! 🤷‍♂️")
+            await query.answer("🤷‍♂️ Nenhum Novo E-mail encontrado! 🤷‍♂️")
 
 #********************************************************************************
 
@@ -184,7 +184,7 @@ async def mail_box(_, query : CallbackQuery):
         mbutton = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🔗 Open Link", url=link)
+                    InlineKeyboardButton("🔗 Abrir link", url=link)
                 ],
                 [
                     InlineKeyboardButton("Back", f"mailbox |{email}|{domain}")
@@ -192,9 +192,9 @@ async def mail_box(_, query : CallbackQuery):
             ]
         )
         await query.message.edit(f""" 
-**From:** `{froms}`
-**Subject:** `{subject}`   
-**Date**: `{date}`
+**De:** `{froms}`
+**Assunto:** `{subject}`   
+**Data**: `{date}`
 {text}
 """,
 reply_markup = mbutton
@@ -209,9 +209,9 @@ reply_markup = mbutton
             ]
         )
         await query.message.edit(f""" 
-**From:** `{froms}`
-**Subject:** `{subject}`   
-**Date**: `{date}`
+**De:** `{froms}`
+**Assunto:** `{subject}`   
+**Data**: `{date}`
 {body}
 """,
 reply_markup = mbutton
@@ -254,10 +254,10 @@ async def stats(_, message: Message):
     await app.send_message(
         name,
         text=f"""
-🍀 Chats Stats 🍀
-🙋‍♂️ Users : `{len(served_users)}`
-👥 Groups : `{len(served_chats)}`
-🚧 Total users & groups : {int((len(served_chats) + len(served_users)))} """)
+🍀 Estatísticas de bate-papos 🍀
+🙋‍♂️ Usuários : `{len(served_users)}`
+👥 Grupos : `{len(served_chats)}`
+🚧 Total de usuários e grupos : {int((len(served_chats) + len(served_users)))} """)
 
 async def broadcast_messages(user_id, message):
     try:
@@ -297,20 +297,20 @@ Broadcast Completed:.""")
 @app.on_message(filters.command("ads"))
 async def ads_message(_, message):
     await message.reply_text(
-"""     ♨️ Advertise On Telegram 🚀
+"""     ♨️ Anuncie no Telegram 🚀
 
-Want to promote anything ? 
+Quer promover alguma coisa? 
 
-MusicplayerdcBot & MediaautoSearchbot is here with your basic needs. We work in around 400 chats with thousand of userbase. One promotional broadcast reaches to thousands of peoples. 
+MusicplayerdcBot & MediaautoSearchbot está aqui com suas necessidades básicas. Trabalhamos em cerca de 400 bate-papos com milhares de clientes. Uma transmissão promocional atinge milhares de pessoas. 
 
-Want to promote your online business ? Want to get people engagement? We are here!
+Quer promover seu negócio online? Quer que as pessoas se ausem? Nós estamos aqui!
 
-Promote whatever you want at lowest and affordable prices.
+Promova o que quiser a preços mais baixos e acessíveis.
 
-https://t.me/Groupdcs 
+https://t.me/ConnectyQ_bot 
 
-🔥Your broadcast will reach group also so minimum 50k users see your message.
+🔥Sua transmissão atingirá o grupo também para que os usuários mínimos de 50 mil vejam sua mensagem.
 """)
 
-print("I'm Alive Now!")
+print("Estou Vivo Agora!")
 app.run()
